@@ -20,7 +20,7 @@ namespace FixSiegeAI
 		// Print to log in-game and desktop
 		public static void Log(string s)
 		{
-			debugging = false; // change this to true for helpful debugging info in-game and to log below
+			bool debugging = false; // change this to true for helpful debugging info in-game and to log below
 			if (debugging)
 			{
 				InformationManager.DisplayMessage(new InformationMessage(s));
@@ -29,7 +29,7 @@ namespace FixSiegeAI
 				{
 					using (System.IO.StreamWriter file = new System.IO.StreamWriter(log_path, true))
 					{ file.WriteLine(s); };
-				}
+				}	catch { };
 			}
 		}
 
