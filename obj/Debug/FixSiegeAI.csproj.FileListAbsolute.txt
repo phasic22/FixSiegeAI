@@ -1,9 +1,0 @@
-C:\Program Files (x86)\Steam\steamapps\common\Mount & Blade II Bannerlord\Modules\FixSiegeAI\FixSiegeAI.dll
-C:\Program Files (x86)\Steam\steamapps\common\Mount & Blade II Bannerlord\Modules\FixSiegeAI\FixSiegeAI.pdb
-C:\Users\Shadow\source\repos\FixSiegeAI\obj\Debug\FixSiegeAI.csproj.CoreCompileInputs.cache
-C:\Users\Shadow\source\repos\FixSiegeAI\obj\Debug\FixSiegeAI.csproj.CopyComplete
-C:\Users\Shadow\source\repos\FixSiegeAI\obj\Debug\FixSiegeAI.dll
-C:\Users\Shadow\source\repos\FixSiegeAI\obj\Debug\FixSiegeAI.pdb
-C:\Program Files (x86)\Steam\steamapps\common\Mount & Blade II Bannerlord\Modules\FixSiegeAI\bin\Win64_Shipping_Client\FixSiegeAI.dll
-C:\Program Files (x86)\Steam\steamapps\common\Mount & Blade II Bannerlord\Modules\FixSiegeAI\bin\Win64_Shipping_Client\FixSiegeAI.pdb
-C:\Users\Shadow\source\repos\FixSiegeAI\obj\Debug\FixSiegeAI.csprojAssemblyReference.cache
