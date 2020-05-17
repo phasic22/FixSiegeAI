@@ -180,6 +180,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy "$(ProjectDir)SubModule.xml" "C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\FixSiegeAI\"</PostBuildEvent>
+    <PostBuildEvent>copy "$(ProjectDir)SubModule.xml" "C:\Program Files (x86)\Steam\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\FixSiegeAI\"</PostBuildEvent>
   </PropertyGroup>
 </Project>
