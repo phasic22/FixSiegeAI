@@ -72,10 +72,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />
+    <Compile Include="InfiniteAmmo.cs" />
+    <Compile Include="FixBlueGear.cs" />
+    <Compile Include="SiegeControl.cs" />
+    <Compile Include="FixAssaultWalls.cs" />
+    <Compile Include="FixDeployment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="SubModule.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="0Harmony.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

@@ -1,0 +1,20 @@
+2.0.0
+	fixed ranged siege weapons from setting formations to follow
+	enabled toggling/cycling through using siege towers/rams, following, and stop using
+	fixed version in xml file
+	
+todo
+	for the love of god fix siege towers
+	make battering ram detachment attack gate, rather than a new group
+	stop ram detachment from shuffling positions when reaching gate
+	lower the minimum range for siege weapons, especially trebuchets
+	increase ballista arrow velocity, decrease reload time, and enable zoom
+	ensure defender/attacker balancing, likely by encouraging towns/castles to emphasize fire onagers if possible
+	improve onager/trebuchet reload pathfinding, perhaps add extra StandingPoints
+	have troops take better cover, it seems horse archers aren't allowed to use cover like archers are, but not sure
+	known crash involving using gear option to re-use siege weapons/use ammo piles, issue on dev end, reported
+	settings menu to enable/disable settings
+	give a report when using the blue-gear / grey-gear command
+	fix so grey-gear inner gate works from outside walls
+	stop defender ai from falling off walls
+	verify mod works as sergeant

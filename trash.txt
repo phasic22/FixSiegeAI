@@ -1,0 +1,186 @@
+
+///////// useful trash ////////////////////////////////////
+//// Have troops use siege engines near movement commands
+//[HarmonyPatch(typeof(MovementOrder), "OnApply")]
+//public static class Patch_OnApply
+//{
+//	public static bool Prefix(this Formation formation)
+//	{
+//		if (formation.CountOfUnits < 1) { return true; }
+//		if (!Main.IsPIC(formation)) { return true; }
+//		//if (Mission.Current.GetMissionBehaviour<SiegeDeploymentHandler>() != null) { return true; } // allows blue-gearing siege engines during deployment
+//		Main.Log("Movement order given: " + formation.MovementOrder.OrderType.ToString());
+//		if (formation.MovementOrder.OrderType == OrderType.FollowEntity) { return true; };
+
+//		foreach (SiegeWeapon sw in Mission.Current.ActiveMissionObjects.FindAllWithType<SiegeWeapon>())
+//		{
+//			if (sw.Side == Mission.Current.PlayerTeam.Side) // only works when player gives order for player's side's siegeweapon
+//			{
+//				bool start = false; bool stop = false; bool cont = false;
+//				bool isUsing = formation.IsUsingMachine(sw);
+//				bool isOrderNear = Main.IsOrderNear(formation, sw, 12f);
+//				if (formation.MovementOrder.OrderType == OrderType.StandYourGround & isUsing) { stop = true; goto eval; };
+//				if (isOrderNear & isUsing) { cont = true; goto eval; }
+//				if (isOrderNear & !isUsing) { start = true; goto eval; }
+//				if (!isOrderNear & !isUsing) { continue; }
+//			eval:
+//				string swStr = sw.GetSiegeEngineType().ToString();
+//				if (start)
+//				{
+//					Main.Log("Formation starting using: " + swStr, true);
+//					if (sw is BatteringRam | sw is SiegeTower)
+//					{
+//						MovementOrder mo = formation.MovementOrder;
+//						Traverse.Create(mo).Method("MovementOrderFollowEntity", sw.GameEntity).GetValue();
+//					}
+//					sw.ForcedUse = true;
+//					Traverse.Create(formation).Method("JoinDetachment", (sw as UsableMachine)).GetValue();
+//					return false;
+//				}
+//				if (stop)
+//				{
+//					Main.Log("Formation stopping using: " + swStr, true);
+//					sw.ForcedUse = false;
+//					Traverse.Create(formation).Method("LeaveDetachment", (sw as UsableMachine)).GetValue();
+//					continue;
+//				}
+//				if (cont)
+//				{
+//					Main.Log("Formation continuing to use: " + swStr, true);
+//					continue;
+//				}
+//			}
+//		}
+//		return true;
+//	}
+//}
+
+//if (formation.MovementOrder.OrderType == OrderType.Charge)
+//	{
+//		foreach (MissionObject gatemo in Mission.Current.MissionObjects)
+//			{
+//				if (gatemo is CastleGate && gatemo.GameEntity.HasTag("inner_gate"))
+//				{
+//					CastleGate ig = gatemo as CastleGate;
+//				}
+//				if (gatemo is CastleGate && gatemo.GameEntity.HasTag("outer_gate"))
+//				{
+//					CastleGate og = gatemo as CastleGate;
+//				}
+//			}
+//	if (og.IsDestroyed() && !ig.IsDestroyed())
+//	{
+//		Traverse.Create(formation).Method("FormAttackEntityDetachment", ig.GameEntity).GetValue();
+//	}
+//	return true;
+//	}
+
+
+//// Old harmony patch that failed to completely prevent dumb AI behavior
+//[HarmonyPatch(typeof(ModuleExtensions), "StartUsingMachine")]
+//public static class Prefix_StartUsingMachine
+//{
+//	public static bool Prefix(this Formation formation, UsableMachine usable, bool isPlayerOrder) // variable names must match exactly
+//	{
+//		if (formation.CountOfUnits < 1) { return true; }
+//		if (!Main.IsPIC(formation)) { return true; }
+//		SiegeWeapon sw = (usable as SiegeWeapon);
+//		Main.St();
+//		Main.Log("Formation told to start using: " + sw.GetSiegeEngineType().ToString());
+//		Main.Log("Is it forced used?:" + sw.ForcedUse.ToString());
+//		Main.Log("Is it a player order?: " + isPlayerOrder.ToString());
+//		return true;
+//	}
+//}
+//// Old harmony patch that failed to completely prevent dumb AI behavior
+//[HarmonyPatch(typeof(ModuleExtensions), "StartUsingMachine")]
+//public static class Prefix_StartUsingMachine
+//{
+//	public static bool Prefix(this Formation formation, UsableMachine usable, bool isPlayerOrder) // variable names must match exactly
+//	{
+//		if (formation.CountOfUnits < 1) { return true; }
+//		if (!Main.IsPIC(formation)) { return true; }
+//		SiegeWeapon sw = (usable as SiegeWeapon);
+//		Main.Log("Formation told to start using: " + sw.GetSiegeEngineType().ToString());
+//		Main.Log("Is it forced used?:" + sw.ForcedUse.ToString());
+//		Main.Log("Is it a player order?: " + isPlayerOrder.ToString());
+//		return true;
+//	}
+//}
+//bool isOrderFar = !Main.IsOrderNear(formation, sw, 45f);
+
+//if (isAIC) { Main.Log("Player in charge, but AI in command. Allowing order."); return true; } // prevents any ai movement orders if player is alive and in charge
+//if (formation.IsUsingMachine(usable)) { Main.Log("Already using."); return false; } // prevent redundant orders
+//Mission.Current.MainAgent.MakeVoice(SkinVoiceManager.VoiceType.UseSiegeWeapon, SkinVoiceManager.CombatVoiceNetworkPredictionType.Prediction);
+//foreach (Formation fs in formation.Team.FormationsIncludingSpecial) { };
+//Main.Log("Num of formations with special: "+formation.Team.FormationsIncludingSpecial.Count().ToString());
+//Main.Log("Num of formations without special: " + formation.Team.Formations.Count().ToString());
+//Main.Log("Num of formations without special: " + formation.Team.Formations.Count().ToString());
+//Main.Log("Num of units including detachments: " + formation.CountOfUnits.ToString());
+//Main.Log("Num of units not including detachments: " + formation.CountOfUnitsWithoutDetachedOnes.ToString());
+//Environment.NewLine + Environment.NewLine + 
+//formation.MovementOrder = MovementOrder.MovementOrderFollow;
+//formation.Team.ResetTactic();
+//formation.ReleaseFormationFromAI();
+//BehaviorAssaultWalls baw = BehaviorAssaultWalls;
+//AIBehaviorComponent;
+//	formation.AI.ResetBehaviorWeights
+//	formation.AI.Can
+//BehaviorComponent sdfsd = new BehaviorStop(formation);
+//formation.AI.AddBehavior(sdfsd);
+//formation.AI.ResetBehaviorWeights();
+//(usable as SiegeLadder).HasCompletedAction
+//(usable as SiegeLadder).State.
+//(usable as SiegeLadder).State.Equals(SiegeLadder.LadderState.OnLand
+
+// var f_loc = formation.QuerySystem.MedianPosition.Position;
+//BehaviorUseSiegeMachines busm = new BehaviorUseSiegeMachines(formation);
+//							if (sw is SiegeTower) { formation.AI.AddBehavior(busm);}
+//							formation.AI.
+//						}
+//OrderController oc = Mission.Current.PlayerTeam.GetOrderControllerOf(formation.PlayerOwner);
+//Mission.Current.MainAgent.MakeVoice(SkinVoiceManager.VoiceType.UseSiegeWeapon, SkinVoiceManager.CombatVoiceNetworkPredictionType.NoPrediction);
+//bool ordIsForward = (formation.MovementOrder.OrderType == OrderType.Advance);
+//bool swMoves = (sw is SiegeLadder || sw is SiegeTower || sw is BatteringRam);
+//if (ordIsForward & swMoves & !isUsing) { start = true; goto eval; }
+//if (ordIsForward & swMoves & isUsing) { cont = true; goto eval; }
+
+//Mission.Current.ActiveMissionObjects.FindAllWithType<CastleGate>();
+
+// Override charge
+//[HarmonyPatch(typeof(OrderController), "GetChargeOrderSubstituteForSiege")]
+//public static class Patch_GetChargeOrderSubstituteForSiege
+//{
+//	public static bool Prefix(OrderController __instance, ref MovementOrder __result, Formation formation)
+//	{
+//		Team team = formation.Team;
+//		TeamAISiegeComponent teamAISiegeComponent = ((team != null) ? team.TeamAI : null) as TeamAISiegeComponent;
+//		if (Mission.Current.IsTeleportingAgents || teamAISiegeComponent == null || teamAISiegeComponent.IsAnyLaneThroughWallsOpen())
+//		{
+//			__result = MovementOrder.MovementOrderCharge;
+//			return false;
+//		}
+//		if (!formation.Team.IsAttacker)
+//		{
+//			CastleGate castleGate = (!teamAISiegeComponent.InnerGate.IsGateOpen) ? teamAISiegeComponent.InnerGate : teamAISiegeComponent.OuterGate;
+//			if (castleGate != null && !formation.IsUsingMachine(castleGate))
+//			{
+//				formation.StartUsingMachine(castleGate, true);
+//			}
+//			__result = MovementOrder.MovementOrderCharge;
+//			return false;
+//		}
+//		if (teamAISiegeComponent.Ladders.Count > 0)
+//		{
+//			SiegeLadder siegeLadder = teamAISiegeComponent.Ladders.MinBy((SiegeLadder l) => l.WaitFrame.origin.DistanceSquared(formation.QuerySystem.MedianPosition.GetNavMeshVec3()));
+//			if (!formation.IsUsingMachine(siegeLadder))
+//			{
+//				formation.StartUsingMachine(siegeLadder, true);
+//			}
+//			__result = MovementOrder.MovementOrderMove(siegeLadder.WaitFrame.origin.ToWorldPosition());
+//			return false;
+//		}
+//		__result = MovementOrder.MovementOrderCharge;
+//		return false;
+//	}
+//}
