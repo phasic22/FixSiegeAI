@@ -6,6 +6,7 @@ using TaleWorlds.MountAndBlade;
 
 namespace FixSiegeAI
 {
+	// fixes what toggling the blue gear does, quite a clever workaround
 	[HarmonyPatch(typeof(OrderController), "ToggleSideOrderUse")]
 	public static class Patch_ToggleSideOrderUse
 	{
@@ -94,7 +95,7 @@ namespace FixSiegeAI
 				__result = OrderType.AttackEntity;
 				return false;
 			}
-			if (__instance.HasCompletedAction()| __instance.IsDestroyed | __instance.IsDeactivated | __instance.IsDisabled) 
+			if ( __instance.IsDestroyed) 
 				{ __result = OrderType.None; return false; }
 			__result = OrderType.Use;
 			return false;

@@ -1,7 +1,7 @@
  <Module>
      <Name value="Fix Siege AI"/>
      <Id value="FixSiegeAI"/>
-     <Version value="v1.2.1"/>
+     <Version value="v2.0.1"/>
      <SingleplayerModule value="true"/>
      <MultiplayerModule value="false"/>
      <DependedModules>

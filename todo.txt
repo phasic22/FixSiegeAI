@@ -1,7 +1,5 @@
-2.0.0
-	fixed ranged siege weapons from setting formations to follow
-	enabled toggling/cycling through using siege towers/rams, following, and stop using
-	fixed version in xml file
+2.0.1
+hotfixed crash when breaking in and defending, hopefully
 	
 todo
 	for the love of god fix siege towers

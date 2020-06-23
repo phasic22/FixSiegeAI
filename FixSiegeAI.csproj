@@ -71,6 +71,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FixSiegeTowerLadders.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="InfiniteAmmo.cs" />
     <Compile Include="FixBlueGear.cs" />
