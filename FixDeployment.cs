@@ -11,6 +11,7 @@ namespace FixSiegeAI
 	{
 		private static bool Prefix()
 		{
+			if (!Mission.Current.PlayerTeam.IsPlayerGeneral) { return true; }
 			Main.Log(Environment.NewLine + "Deployment started. ");
 			foreach (Formation formation in Mission.Current.PlayerTeam.Formations)
 			{
@@ -19,6 +20,7 @@ namespace FixSiegeAI
 					formation.IsAIControlled = false;
 					Main.Log("AI control disabled.");
 				}
+				else { formation.IsAIControlled = true; }
 			}
 			Mission.Current.AllowAiTicking = true;
 			Mission.Current.ForceTickOccasionally = true;
@@ -39,6 +41,7 @@ namespace FixSiegeAI
 	{
 		public static void Postfix()
 		{
+			if (!Mission.Current.PlayerTeam.IsPlayerGeneral) { return; }
 			Main.Log(Environment.NewLine + "Begin assault button pressed. ");
 			if (!Mission.Current.IsFieldBattle)
 			{
@@ -55,16 +58,20 @@ namespace FixSiegeAI
 		}
 	}
 
-	// Stops troops from getting stuck using ladders if within a certain range
-	[HarmonyPatch(typeof(SiegeLadder), "OnTick")]
-	public static class Patch_SiegeLadder_OnTick
-	{
-		public static void Postfix(SiegeLadder __instance)
-		{
-			if (!__instance.IsUsed) { (__instance as SiegeWeapon).ForcedUse = false; }
-			else { (__instance as SiegeWeapon).ForcedUse = true; }
-		}
-	}
+	//// Stops troops from getting stuck using ladders if within a certain range
+	//[HarmonyPatch(typeof(SiegeLadder), "OnTick")]
+	//public static class Patch_SiegeLadder_OnTick
+	//{
+	//	public static void Postfix(SiegeLadder __instance)
+	//	{
+	//		//if (!Mission.Current.PlayerTeam.IsPlayerGeneral) { return; }
+	//		if (!__instance.IsUsed) 
+	//		{
+	//			(__instance as SiegeWeapon).ForcedUse = false; 
+	//		}
+	//		else { (__instance as SiegeWeapon).ForcedUse = true; }
+	//	}
+	//}
 
 
 }

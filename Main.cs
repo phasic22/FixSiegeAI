@@ -34,6 +34,8 @@ namespace FixSiegeAI
 		public override void OnMissionBehaviourInitialize(Mission mission)
 		{
 			Main.Log(Environment.NewLine + "Mission loaded. ");
+			//Main.Log("Is player general: "+Mission.Current.PlayerTeam.IsPlayerGeneral);
+
 			foreach (SiegeWeapon sw in Mission.Current.ActiveMissionObjects.FindAllWithType<SiegeWeapon>())
 			{
 				if (sw != null && sw.Side == Mission.Current.PlayerTeam.Side && Mission.Current.PlayerTeam.IsPlayerGeneral)
@@ -90,7 +92,8 @@ namespace FixSiegeAI
 			if (debug) { Main.Log("Is player sergeant of formation?: " + isPS.ToString()); }
 			bool isPA = Mission.Current.MainAgent != null && Mission.Current.MainAgent.IsActive();
 			if (debug) { Main.Log("Is player alive?: " + isPA.ToString()); }
-			bool isPIC = isPA && (isPG | isPS);
+			//bool isPIC = isPA && (isPG | isPS); // being sergeant during siege is meaningless?
+			bool isPIC = isPA && isPG;
 			if (debug) { Main.Log("Is player in charge of formation?: " + isPIC.ToString()); }
 			if (isPIC) { return true; } else { return false; }
 		}

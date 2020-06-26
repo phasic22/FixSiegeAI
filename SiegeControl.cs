@@ -37,13 +37,7 @@ namespace FixSiegeAI
 			if (!Main.IsPIC(formation) | formation.IsAIControlled) { return true; }
 			SiegeWeapon sw = (usable as SiegeWeapon);
 			Main.Log("Formation stopping using: " + sw.GetSiegeEngineType().ToString(), true);
-			if (sw is SiegeTower)
-			{
-				SiegeTower st = (sw as SiegeTower);
-				Traverse.Create(st).Method("SetAbilityOfFaces", false).GetValue();
-			}
 			Traverse.Create(formation).Method("LeaveDetachment", usable).GetValue();
-
 			return false;
 		}
 	}
@@ -64,7 +58,7 @@ namespace FixSiegeAI
 					if (formation.MovementOrder.OrderType == OrderType.StandYourGround & isUsing)
 					{
 						sw.ForcedUse = false;
-						formation.StopUsingMachine(sw,true);
+						formation.StopUsingMachine(sw, true);
 						continue;
 					};
 				}
