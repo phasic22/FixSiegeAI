@@ -9,7 +9,6 @@ namespace FixSiegeAI
 	{
 		public static void Postfix(CastleGate __instance)
 		{
-			if (!Mission.Current.PlayerTeam.IsPlayerGeneral) { return; }
 			TeamAISiegeComponent aic = Mission.Current.AttackerTeam.TeamAI as TeamAISiegeComponent;
 			if (__instance.GameEntity.HasTag("inner_gate"))
 			{
@@ -42,17 +41,16 @@ namespace FixSiegeAI
 		}
 	}
 
-	//// Still trying to debug charging
-	//[HarmonyPatch(typeof(OrderController), "GetChargeOrderSubstituteForSiege")]
-	//public static class Patch_GetChargeOrderSubstituteForSiege
-	//{
-	//	public static bool Prefix(OrderController __instance, ref MovementOrder __result, Formation formation)
-	//	{
-	//		// if (!Mission.Current.PlayerTeam.IsPlayerGeneral) { return true; }
-	//		//Main.Log("Charge command given.");
-	//		//__result = MovementOrder.MovementOrderCharge;
-	//		//return true;
-	//	}
-	//}
+	// Still trying to debug charging
+	[HarmonyPatch(typeof(OrderController), "GetChargeOrderSubstituteForSiege")]
+	public static class Patch_GetChargeOrderSubstituteForSiege
+	{
+		public static bool Prefix(OrderController __instance, ref MovementOrder __result, Formation formation)
+		{
+			Main.Log("Charge command given.");
+			__result = MovementOrder.MovementOrderCharge;
+			return true;
+		}
+	}
 
 }

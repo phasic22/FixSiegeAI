@@ -16,7 +16,7 @@ namespace FixSiegeAI
 			try { File.Delete(@"C:\Users\Shadow\Desktop\FixSiegeAI_Log.txt"); } catch { };
 			try
 			{
-				Main.Log("FixSiegeAI module loaded.");
+				Main.Log("FixSiegeAI v2.0.2 loaded.",true);
 				var harmony = new Harmony("fixsiegeai");
 				harmony.PatchAll();
 				Main.Log("Harmony patches loaded.");
@@ -34,8 +34,6 @@ namespace FixSiegeAI
 		public override void OnMissionBehaviourInitialize(Mission mission)
 		{
 			Main.Log(Environment.NewLine + "Mission loaded. ");
-			//Main.Log("Is player general: "+Mission.Current.PlayerTeam.IsPlayerGeneral);
-
 			foreach (SiegeWeapon sw in Mission.Current.ActiveMissionObjects.FindAllWithType<SiegeWeapon>())
 			{
 				if (sw != null && sw.Side == Mission.Current.PlayerTeam.Side && Mission.Current.PlayerTeam.IsPlayerGeneral)
@@ -60,7 +58,7 @@ namespace FixSiegeAI
 		// Utilities
 		public static void Log(string s, bool ingame = false)
 		{
-			bool debugging = false; // change this to true for helpful debugging info in-game and to log below
+			bool debugging = true; // change this to true for helpful debugging info in-game and to log below
 			if (ingame || debugging)
 			{
 				InformationManager.DisplayMessage(new InformationMessage(s));
@@ -87,13 +85,12 @@ namespace FixSiegeAI
 		public static bool IsPIC(Formation formation, bool debug = false)
 		{
 			bool isPG = formation.Team.IsPlayerGeneral;
-			if (debug) { Main.Log(Environment.NewLine+"Is player general of formation?: " + isPG.ToString()); }
+			if (debug) { Main.Log(Environment.NewLine + "Is player general of formation?: " + isPG.ToString()); }
 			bool isPS = formation.Team.IsPlayerSergeant;
 			if (debug) { Main.Log("Is player sergeant of formation?: " + isPS.ToString()); }
 			bool isPA = Mission.Current.MainAgent != null && Mission.Current.MainAgent.IsActive();
 			if (debug) { Main.Log("Is player alive?: " + isPA.ToString()); }
-			//bool isPIC = isPA && (isPG | isPS); // being sergeant during siege is meaningless?
-			bool isPIC = isPA && isPG;
+			bool isPIC = isPA && (isPG | isPS);
 			if (debug) { Main.Log("Is player in charge of formation?: " + isPIC.ToString()); }
 			if (isPIC) { return true; } else { return false; }
 		}
